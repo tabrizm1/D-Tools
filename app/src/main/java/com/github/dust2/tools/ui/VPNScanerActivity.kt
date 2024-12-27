@@ -11,18 +11,18 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.tools.smali.dexlib2.dexbacked.DexBackedDexFile
 import com.github.dust2.tools.R
 import com.github.dust2.tools.databinding.ItemVpnAppItemBinding
 import com.github.dust2.tools.databinding.LayoutVpnScanerBinding
+import com.github.dust2.tools.util.toStringIterator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import libcore.Libcore
 import java.io.File
 import java.util.zip.ZipFile
 import kotlin.math.roundToInt
-import com.android.tools.smali.dexlib2.dexbacked.DexBackedDexFile
-import com.github.dust2.tools.util.toStringIterator
-import libcore.Libcore
 
 class VPNScanerActivity : BaseActivity() {
 
@@ -82,9 +82,9 @@ class VPNScanerActivity : BaseActivity() {
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(element: AppInfo) {
-            binding.appIcon.setImageDrawable(element.packageInfo.applicationInfo.loadIcon(binding.root.context.packageManager))
+            binding.appIcon.setImageDrawable(element.packageInfo.applicationInfo?.loadIcon(binding.root.context.packageManager))
             binding.appName.text =
-                element.packageInfo.applicationInfo.loadLabel(binding.root.context.packageManager)
+                element.packageInfo.applicationInfo?.loadLabel(binding.root.context.packageManager)
             binding.packageName.text = element.packageInfo.packageName
             val appType = element.vpnType.appType
             if (appType != null) {
@@ -186,7 +186,7 @@ class VPNScanerActivity : BaseActivity() {
     }
 
     private fun getVPNAppType(packageInfo: PackageInfo): String? {
-        ZipFile(File(packageInfo.applicationInfo.publicSourceDir)).use { packageFile ->
+        ZipFile(File(packageInfo.applicationInfo?.publicSourceDir)).use { packageFile ->
             for (packageEntry in packageFile.entries()) {
                 if (!(packageEntry.name.startsWith("classes") && packageEntry.name.endsWith(
                         ".dex"
@@ -240,8 +240,8 @@ class VPNScanerActivity : BaseActivity() {
     }
 
     private fun getVPNCoreType(packageInfo: PackageInfo): VPNCoreType? {
-        val packageFiles = mutableListOf(packageInfo.applicationInfo.publicSourceDir)
-        packageInfo.applicationInfo.splitPublicSourceDirs?.also {
+        val packageFiles = mutableListOf(packageInfo.applicationInfo?.publicSourceDir ?: "")
+        packageInfo.applicationInfo?.splitPublicSourceDirs?.also {
             packageFiles.addAll(it)
         }
         val vpnType = try {

@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.github.dust2.tools"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.github.dust2.tools"
         minSdk = 21
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 11
         versionName = "0.0.5"
 
