@@ -14,6 +14,7 @@ import com.github.dust2.tools.ui.AboutActivity
 import com.github.dust2.tools.ui.BestCdnIpActivity
 import com.github.dust2.tools.ui.CfWarpActivity
 import com.github.dust2.tools.ui.StunActivity
+import com.github.dust2.tools.ui.VPNScanerActivity
 import com.github.dust2.tools.util.Utils
 import com.github.dust2.tools.util.onMainDispatcher
 import com.github.dust2.tools.util.runOnIoDispatcher
@@ -50,9 +51,9 @@ class HomeFragment : Fragment() {
             startActivity(Intent(requireContext(), StunActivity::class.java))
         }
 
-//        binding.layoutScanVpnApps.setOnClickListener {
-//            startActivity(Intent(requireContext(), VPNScanerActivity::class.java))
-//        }
+        binding.layoutScanVpnApps.setOnClickListener {
+            startActivity(Intent(requireContext(), VPNScanerActivity::class.java))
+        }
 
         binding.layoutAbout.setOnClickListener {
             startActivity(Intent(requireContext(), AboutActivity::class.java))
