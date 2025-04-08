@@ -9,10 +9,10 @@ android {
 
     defaultConfig {
         applicationId = "com.github.dust2.tools"
-        minSdk = 21
+        minSdk = 23
         targetSdk = 35
-        versionCode = 11
-        versionName = "0.0.5"
+        versionCode = 12
+        versionName = "0.0.6"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
